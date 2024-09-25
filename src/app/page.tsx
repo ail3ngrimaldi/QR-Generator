@@ -1,95 +1,90 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+import { useState } from 'react'
+import { QRCodeSVG } from 'qrcode.react'
+
+export default function CryptoQRGenerator() {
+  const [bitcoinAddress, setBitcoinAddress] = useState('')
+  const [ethereumAddress, setEthereumAddress] = useState('')
+  const [polkadotAddress, setPolkadotAddress] = useState('')
+
+  const inputStyle = "w-full p-2 border rounded-md"
+  const cardStyle = "bg-white shadow-md rounded-lg p-6 mb-6"
+  const titleStyle = "text-xl font-bold mb-2"
+  const labelStyle = "block mb-2 text-sm font-medium text-gray-700"
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold text-center mb-6">Crypto Wallet QR Code Generator</h1>
+      
+      <div className={cardStyle}>
+        <h2 className={titleStyle}>Bitcoin</h2>
+        <label className={labelStyle} htmlFor="bitcoin">Bitcoin Address</label>
+        <input
+          id="bitcoin"
+          className={inputStyle}
+          placeholder="Enter Bitcoin address"
+          value={bitcoinAddress}
+          onChange={(e) => setBitcoinAddress(e.target.value)}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+        {bitcoinAddress && (
+          <div className="mt-4 flex justify-center">
+            <QRCodeSVG 
+              value={bitcoinAddress} 
+              size={200}
+              bgColor="#ffffff"
+              fgColor="#10352b"
+              includeMargin={true}
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          </div>
+        )}
+      </div>
+
+      <div className={cardStyle}>
+        <h2 className={titleStyle}>Ethereum/Polygon</h2>
+        <label className={labelStyle} htmlFor="ethereum">Ethereum/Polygon Address</label>
+        <input
+          id="ethereum"
+          className={inputStyle}
+          placeholder="Enter Ethereum or Polygon address"
+          value={ethereumAddress}
+          onChange={(e) => setEthereumAddress(e.target.value)}
+        />
+        {ethereumAddress && (
+          <div className="mt-4 flex justify-center">
+            <QRCodeSVG 
+              value={ethereumAddress} 
+              size={200}
+              bgColor="#ffffff"
+              fgColor="#10352b"
+              includeMargin={true}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className={cardStyle}>
+        <h2 className={titleStyle}>Polkadot/Kusama</h2>
+        <label className={labelStyle} htmlFor="polkadot">Polkadot/Kusama Address</label>
+        <input
+          id="polkadot"
+          className={inputStyle}
+          placeholder="Enter Polkadot or Kusama address"
+          value={polkadotAddress}
+          onChange={(e) => setPolkadotAddress(e.target.value)}
+        />
+        {polkadotAddress && (
+          <div className="mt-4 flex justify-center">
+            <QRCodeSVG 
+              value={polkadotAddress} 
+              size={200}
+              bgColor="#ffffff"
+              fgColor="#10352b"
+              includeMargin={true}
+            />
+          </div>
+        )}
+      </div>
     </div>
-  );
+  )
 }
